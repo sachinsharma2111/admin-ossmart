@@ -35,13 +35,12 @@ function Login() {
     if (Object.keys(errors).length === 0) {
       dispatch(login(initialValues)).then((res) => {
         if (res) {
+          console.log(res)
           navigate("/");
-          window.location.reload();
         }
       });
     } else {
       for (var key in errors) {
-        console.log(key);
         toast.error(errors[key]);
       }
     }
