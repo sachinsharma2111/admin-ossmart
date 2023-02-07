@@ -1,16 +1,16 @@
 import "./App.css";
 import Dashboard from "./components/Dashboard/Dashboard";
-import Header from "./components/Header/Header";
-import Footer from "./components/Footer/Footer";
-import Menu from "./components/Menu/Menu";
-import AllProducts from "./components/AllProducts/AllProducts";
+import SidebarLayout from "./components/Layout/layout";
 import BannersOffers from "./components/BannersOffers/BannersOffers";
 import Customers from "./components/Customers/Customers";
 import Notifications from "./components/Notifications/Notifications";
 import Login from "./components/Login/Login";
-import Register from "./components/Register/Register";
 import BankAccount from "./components/BankAccount/BankAccount";
 import Batteries from "./components/Batteries/Batteries";
+import Category from "./components/Category/Category"
+import Products from "./components/Products/Products";
+import UploadImages from "./components/ImagesUpload/FilePondUpload";
+
 import {
   BrowserRouter as Router,
   Routes,
@@ -19,36 +19,31 @@ import {
 } from "react-router-dom";
 
 function App() {
+
+  const currentUser = localStorage.getItem("userToken");
   return (
     <div className="App">
 
       <Router>
-      <Header />
-        <Menu />
           <Routes>
-            <Route exact path="/" element={<BannersOffers />} />
-            <Route exact path="/allproducts" element={<AllProducts />} />
-            <Route exact path="/customers" element={<Customers />} />
-            <Route exact path="/notifications" element={<Notifications />} />
-            <Route exact path="/login" element={<Login />} />
-            <Route exact path="/register" element={<Register />} />
-            <Route exact path="/bankaccount" element={<BankAccount />} />
-            <Route exact path="/batteries" element={<Batteries />} />
-
-            
+            { !currentUser?
+              <Route exact path="login" element={<Login />} />
+            :
+            <Route exact path="/" element={<SidebarLayout/>}>
+              <Route exact index  element={<Dashboard/>}/>
+              <Route exact path="/products" element={<Products />} />
+              <Route exact path="/customers" element={<Customers />} />
+              <Route exact path="/notifications" element={<Notifications />} />
+              <Route exact path="/bankaccount" element={<BankAccount />} />
+              <Route exact path="/batteries" element={<Batteries />} />
+              <Route exact path="/bankoffers" element={<BannersOffers />} />
+              <Route exact path="/category" element={<Category/>} />
+              <Route exact path="/upload-images" element={<UploadImages/>} />
+            </Route>
+          }
+          <Route path="*" element={!currentUser ? <Login /> : <Navigate to="/"/> } />,
           </Routes>
       </Router>
-
-     
-      
-      {/* <Dashboard /> */}
-      {/* <AllProducts /> */}
-      {/* <Notifications/> */}
-      {/* <Customers/> */}
-      {/* <BannersOffers /> */}
-      {/* <Login/> */}
-      {/* <Register /> */}
-      <Footer />
     </div>
   );
 }

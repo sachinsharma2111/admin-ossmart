@@ -1,25 +1,25 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-// import NoPage from "./pages/NoPage";
-import Dashboard from "../Dashboard/Dashboard";
-import AllProducts from "../AllProducts/AllProducts";
-import Inverters from "../Inverters/Inverters";
-import Batteries from "../Batteries/Batteries";
-import Bulbs from "../Bulbs/Bulbs";
-import Cookers from "../Cookers/Cookers";
-import Fans from "../Fans/Fans";
-import IronBoxes from "../IronBoxes/IronBoxes";
-import MixerGrinders from "../MixerGrinders/MixerGrinder";
-import Switches from "../Switches/Switches";
+import {  useLocation } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 function Menu() {
+  let location = useLocation();
+  let navigate = useNavigate();
+
+  const Logout = (()=>{
+    localStorage.clear();
+    window.location.reload();
+  //  return  navigate("/login");
+  })
   return (
     <div>
+      <ToastContainer />
       <aside className="main-sidebar sidebar-dark-primary elevation-4">
         {/* Brand Logo */}
         <a href="index3.html" className="brand-link">
-          <img
+          {/* <img
             src="dist/img/AdminLTELogo.png"
             alt="AdminLTE Logo"
             className="brand-image img-circle elevation-3"
@@ -27,7 +27,7 @@ function Menu() {
           />
           <span className="brand-text font-weight-light">
             Smart Electronics
-          </span>
+          </span> */}
         </a>
 
         {/* Sidebar */}
@@ -75,98 +75,49 @@ function Menu() {
               data-accordion="false"
             >
               <li className="nav-item menu-open">
-                <a href="#" className="nav-link active">
+                <a href="#" className={location.pathname=="/" ?"nav-link active" : "nav-link"}>
                   <i className="nav-icon fas fa-tachometer-alt" />
                   <p>Dashboard</p>
                 </a>
               </li>
+
+              <li className="nav-item">
+                <a href="category" className={location.pathname=="/category" ?"nav-link active" : "nav-link"}>
+                  <i className="nav-icon fas fa-circle nav-icon" />
+                  <p>Categories</p>
+                </a>
+              </li>
              
               <li className="nav-item">
-                <a href="#" className="nav-link">
+                <a href="products" className={location.pathname=="/products" ?"nav-link active" : "nav-link"} >
                   <i className="nav-icon fas fa-th" />
                   <p>
                     Products
-                    <i className="fas fa-angle-left right" />
                   </p>
                 </a>
-                <ul className="nav nav-treeview">
-                  <li className="nav-item">
-                    <a href="pages/layout/top-nav.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>All Products</p>
-                    </a>
-                  </li>
-
-                  <li className="nav-item">
-                    <a href="pages/layout/top-nav.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Inverters</p>
-                    </a>
-                  </li>
-
-                  <li className="nav-item">
-                    <a href="pages/layout/top-nav.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Batteries</p>
-                    </a>
-                  </li>
-
-                  <li className="nav-item">
-                    <a href="pages/layout/top-nav.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Fans</p>
-                    </a>
-                  </li>
-
-                  <li className="nav-item">
-                    <a href="pages/layout/top-nav.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Cookers</p>
-                    </a>
-                  </li>
-
-                  <li className="nav-item">
-                    <a href="pages/layout/top-nav.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Switches</p>
-                    </a>
-                  </li>
-
-                  <li className="nav-item">
-                    <a href="pages/layout/top-nav.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Bubls</p>
-                    </a>
-                  </li>
-
-                  <li className="nav-item">
-                    <a href="pages/layout/top-nav.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Mixer Grinders</p>
-                    </a>
-                  </li>
-
-                  <li className="nav-item">
-                    <a href="pages/layout/top-nav.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Iron Boxes</p>
-                    </a>
-                  </li>
-
-                  <li className="nav-item">
-                    <a href="pages/layout/top-nav.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Other products</p>
-                    </a>
-                  </li>
-                </ul>
+                
               </li>
+
+              <li className="nav-item">
+                <a href="upload-images" className={location.pathname=="/upload-images" ?"nav-link active" : "nav-link"} >
+                  <i className="nav-icon fa fa-upload" />
+                  <p>
+                    Upload Images
+                  </p>
+                </a>
+                
+              </li>
+
+              
               <li className="nav-item">
                 <a href="pages/widgets.html" className="nav-link">
                   <i className="nav-icon fas fa-circle nav-icon" />
                   <p>Banners & Offers</p>
                 </a>
               </li>
+
+              
+
 
               <li className="nav-item">
                 <a href="pages/widgets.html" className="nav-link">
@@ -193,24 +144,18 @@ function Menu() {
                 </a>
               </li>
 
+             
               <li className="nav-item">
                 <a href="pages/widgets.html" className="nav-link">
-                  <i className="nav-icon fas fa-th" />
-                  <p>Register</p>
-                </a>
-              </li>
-
-              <li className="nav-item">
-                <a href="pages/widgets.html" className="nav-link">
-                  <i className="nav-icon fas fa-sign-in-alt" />
-                  <p>Login</p>
-                </a>
-              </li>
-
-              <li className="nav-item">
-                <a href="pages/widgets.html" className="nav-link">
-                  <i className="nav-icon fas fa-user" />
+                  <i className="nav-icon fas fa-lock" />
                   <p>Profile</p>
+                </a>
+              </li>
+
+              <li className="nav-item">
+                <a href="" onClick={Logout} className="nav-link">
+                  <i className="nav-icon fas fa-user" />
+                  <p>Logout</p>
                 </a>
               </li>
 
